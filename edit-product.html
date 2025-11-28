@@ -1,104 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Product - ShopSite</title>
+  <title>Edit Product - NoveBay</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    body {
-      background-color: #f7f7f7;
-    }
-
-    .card-form {
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      background-color: white;
-    }
-
-    .btn-success {
-      background-color: #001f4d;
-      border-color: #001f4d;
-    }
-
-    .btn-success:hover {
-      background-color: #004080;
-      border-color: #004080;
-    }
-
-    .form-label {
-      font-weight: 500;
-      color: #001f4d;
-    }
-
-    .navbar-brand {
-      font-weight: 600;
-    }
-  </style>
 </head>
+
 <body onload="loadEditProduct(); checkAdmin();">
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">ShopSite</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
-        <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
-        <li class="nav-item"><a class="nav-link active" href="edit-product.html">Edit Product</a></li>
-      </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="home.html">NoveBay</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+          <li class="nav-item"><a class="nav-link active" href="edit-product.html">Edit Product</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Edit Product Form -->
+  <div class="container mt-5 col-md-6 mb-5">
+    <h2 class="text-center mb-4 shimmer" style="font-size: 2.5rem;">Edit Item</h2>
+    <div class="card card-form">
+      <form id="editProductForm">
+        <div class="mb-3">
+          <label class="form-label" for="editName">Product Name</label>
+          <input type="text" id="editName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="editPrice">Price</label>
+          <input type="number" id="editPrice" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="editDesc">Description</label>
+          <textarea id="editDesc" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="editImage">Product Image (optional - leave empty to keep current)</label>
+          <input type="file" id="editImage" class="form-control" accept="image/*" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Update Product</button>
+      </form>
     </div>
   </div>
-</nav>
 
-<!-- Edit Product Form -->
-<div class="container mt-5 col-md-6">
-  <h2 class="text-center mb-4" style="color:#001f4d;">Edit Product</h2>
-  <div class="card card-form">
-    <form id="editProductForm">
-      <div class="form-outline mb-3">
-        <input type="text" id="editName" class="form-control" required />
-        <label class="form-label" for="editName">Product Name</label>
-      </div>
+  <!-- Footer -->
+  <footer class="footer mt-5 text-center">
+    <div class="container">
+      <p>&copy; 2025 NoveBay. All rights reserved.</p>
+    </div>
+  </footer>
 
-      <div class="form-outline mb-3">
-        <input type="number" id="editPrice" class="form-control" required />
-        <label class="form-label" for="editPrice">Price</label>
-      </div>
-
-      <div class="form-outline mb-3">
-        <textarea id="editDesc" class="form-control" required></textarea>
-        <label class="form-label" for="editDesc">Description</label>
-      </div>
-
-      <div class="form-outline mb-3">
-        <input type="text" id="editImage" class="form-control" required />
-        <label class="form-label" for="editImage">Image URL</label>
-      </div>
-
-      <button type="submit" class="btn btn-success w-100">Update Product</button>
-    </form>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer mt-5">
-  <p style="color:#001f4d;" class="text-center">&copy; 2025 ShopSite. All rights reserved.</p>
-</footer>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/products.js"></script>
-<script src="js/common.js"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/common.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - NoveBay</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Hero Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23D4AF37" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .brand-name {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700 0%, #FDB931 25%, #D4AF37 50%, #FDB931 75%, #FFD700 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6));
+            letter-spacing: -2px;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            animation: fadeInUp 1.2s ease-out;
+            font-size: 1.5rem;
+            color: #C0C0C0;
+            margin-top: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-cta {
+            animation: fadeInUp 1.4s ease-out;
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #FFD700, #D4AF37);
+            color: #000;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: none;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #000;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.05;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .products-section {
+            padding: 80px 0;
+            background: linear-gradient(to bottom, #f5f5f5, #ffffff);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .product-card {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .product-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .product-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .product-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            padding: 60px 0;
+            color: #D4AF37;
+            border-top: 2px solid #D4AF37;
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        .stat-item {
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            display: block;
+            animation: pulse 2s ease-in-out infinite;
+            background: linear-gradient(135deg, #FFD700, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            color: #C0C0C0;
+            letter-spacing: 1px;
+        }
+
+        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li><li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li><li class="nav-item"><a class="nav-link" href="login.html">Login</a></li><li class="nav-item"><a class="nav-link" href="register.html">Register</a></li></ul></div></div></nav>< !-- Hero Section --><section class="hero-section"><div class="floating-shapes"><div class="shape"><svg width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="#D4AF37" /></svg></div><div class="shape"><svg width="150" height="150" viewBox="0 0 200 200"><rect x="50" y="50" width="100" height="100" fill="#D4AF37" /></svg></div><div class="shape"><svg width="180" height="180" viewBox="0 0 200 200"><polygon points="100,20 180,180 20,180" fill="#D4AF37" /></svg></div></div><div class="container" style="position: relative; z-index: 1;"><div class="row align-items-center"><div class="col-lg-12 text-center"><div class="hero-content"><h1 class="brand-name">NoveBay</h1><p class="hero-subtitle">Exclusive Luxury Collection</p><div class="hero-cta"><a href="shop.html" class="cta-button">Explore Collection</a></div></div></div></div></div></section>< !-- Stats Section --><section class="stats-section"><div class="container"><div class="row"><div class="col-md-4 mb-4"><div class="stat-item"><span class="stat-number">1000+</span><span class="stat-label">VIP Members</span></div></div><div class="col-md-4 mb-4"><div class="stat-item"><span class="stat-number">500+</span><span class="stat-label">Premium Products</span></div></div><div class="col-md-4 mb-4"><div class="stat-item"><span class="stat-number">24/7</span><span class="stat-label">Concierge Service</span></div></div></div></div></section>< !-- Featured Products --><section class="products-section"><div class="container"><h2 class="section-title">Curated Collection</h2><div class="row">< !-- Product Card 1 --><div class="col-md-4 mb-4 product-card"><div class="card shadow-sm"><img src="images/lv_bag_1.png" class="card-img-top" alt="Louis Vuitton Bag"><div class="card-body text-center"><h5 class="card-title">Louis Vuitton Monogram Bag</h5><p class="card-text">$2,
+        499.99</p><a href="shop.html" class="btn btn-primary w-100">View Details</a></div></div></div>< !-- Product Card 2 --><div class="col-md-4 mb-4 product-card"><div class="card shadow-sm"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80"
+        class="card-img-top" alt="Gucci Dress"><div class="card-body text-center"><h5 class="card-title">Gucci Floral Dress</h5><p class="card-text">$3,
+        499.99</p><a href="shop.html" class="btn btn-primary w-100">View Details</a></div></div></div>< !-- Product Card 3 --><div class="col-md-4 mb-4 product-card"><div class="card shadow-sm"><img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=80"
+        class="card-img-top" alt="Gucci Perfume"><div class="card-body text-center"><h5 class="card-title">Gucci Bloom Perfume</h5><p class="card-text">$189.99</p><a href="shop.html" class="btn btn-primary w-100">View Details</a></div></div></div></div></div></section>< !-- Footer --><footer class="footer mt-5 text-center"><div class="container"><p>&copy;
+        2025 NoveBay. All rights reserved.</p></div></footer>< !-- Scripts --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script><script src="js/common.js"></script><script src="js/products.js"></script></body></html>

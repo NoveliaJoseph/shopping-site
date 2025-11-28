@@ -1,4 +1,10 @@
-// auth.js
+// ---------- DEFAULT ADMIN ACCOUNT ----------
+let existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+const adminExists = existingUsers.some(user => user.email === "admin@gmail.com");
+if (!adminExists) {
+  existingUsers.push({ name: "Admin", email: "admin@gmail.com", password: "admin123", role: "admin" });
+  localStorage.setItem("users", JSON.stringify(existingUsers));
+}
 
 // ---------- REGISTER ----------
 const registerForm = document.getElementById("registerForm");
@@ -12,13 +18,12 @@ if (registerForm) {
     const password = document.getElementById("password").value.trim();
     const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
-    // Validation
+    // Check password match
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
-    // Get existing users
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
     // Check if email already exists
@@ -32,8 +37,10 @@ if (registerForm) {
     users.push({ name, email, password, role: "user" });
     localStorage.setItem("users", JSON.stringify(users));
 
-    alert("Registration successful! You can now login.");
-    window.location.href = "login.html";
+    alert("Registration successful! Welcome.");
+    
+    // Redirect to Home page
+    window.location.replace("index.html");
   });
 }
 
@@ -48,7 +55,6 @@ if (loginForm) {
     const password = document.getElementById("loginPassword").value.trim();
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
-
     const user = users.find(user => user.email === email && user.password === password);
 
     if (!user) {
@@ -56,11 +62,11 @@ if (loginForm) {
       return;
     }
 
-    // Save logged-in user in localStorage
     localStorage.setItem("loggedInUser", JSON.stringify(user));
-
     alert(`Welcome, ${user.name}!`);
-    window.location.href = "index.html";
+
+    // Redirect to Home page
+    window.location.replace("index.html");
   });
 }
 
@@ -79,6 +85,6 @@ function checkAdmin() {
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
   if (!user || user.role !== "admin") {
     alert("You must be an admin to access this page!");
-    window.location.href = "login.html";
+    window.location.replace("login.html");
   }
 }

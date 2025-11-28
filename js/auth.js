@@ -2,10 +2,10 @@
 document.getElementById("registerForm")?.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    let name = name.value;
-    let email = email.value;
-    let pass = password.value;
-    let cpass = confirmPassword.value;
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("password").value;
+    let cpass = document.getElementById("confirmPassword").value;
 
     if (pass !== cpass) {
         alert("Passwords do not match!");
@@ -35,8 +35,8 @@ document.getElementById("registerForm")?.addEventListener("submit", function (e)
 document.getElementById("loginForm")?.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    let email = loginEmail.value;
-    let pass = loginPassword.value;
+    let email = document.getElementById("loginEmail").value;
+    let pass = document.getElementById("loginPassword").value;
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
 

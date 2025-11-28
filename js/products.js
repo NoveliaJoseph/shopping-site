@@ -10,8 +10,58 @@ function loadProducts() {
   productList.innerHTML = "";
 
   if (products.length === 0) {
-    productList.innerHTML = "<p class='text-center'>No products available.</p>";
-    return;
+    // Seed default products
+    products = [
+      {
+        name: "Louis Vuitton Monogram Bag",
+        price: "2499.99",
+        desc: "Iconic monogram canvas handbag with gold hardware.",
+        image: "images/lv_bag_1.png"
+      },
+      {
+        name: "Louis Vuitton Tote Bag",
+        price: "2899.99",
+        desc: "Premium leather tote with signature design.",
+        image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&q=80"
+      },
+      {
+        name: "Louis Vuitton Crossbody",
+        price: "1999.99",
+        desc: "Elegant crossbody bag with gold chain strap.",
+        image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&q=80"
+      },
+      {
+        name: "Gucci Floral Dress",
+        price: "3499.99",
+        desc: "Exquisite designer dress with signature floral pattern.",
+        image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80"
+      },
+      {
+        name: "Gucci Bloom Perfume",
+        price: "189.99",
+        desc: "Luxury fragrance with floral notes.",
+        image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=80"
+      },
+      {
+        name: "Elegant Dress",
+        price: "49.99",
+        desc: "A beautiful evening dress for special occasions.",
+        image: "images/dress.png"
+      },
+      {
+        name: "Sporty Shoes",
+        price: "79.99",
+        desc: "High-performance running shoes.",
+        image: "images/shoes.png"
+      },
+      {
+        name: "Luxury Watch",
+        price: "129.99",
+        desc: "A timeless classic watch.",
+        image: "images/watch.png"
+      }
+    ];
+    localStorage.setItem("products", JSON.stringify(products));
   }
 
   products.forEach((product, index) => {
@@ -40,15 +90,25 @@ if (addProductForm) {
     const name = document.getElementById("pname").value.trim();
     const price = document.getElementById("price").value.trim();
     const desc = document.getElementById("desc").value.trim();
-    const image = document.getElementById("image").value.trim();
+    const imageFile = document.getElementById("image").files[0];
 
-    let products = JSON.parse(localStorage.getItem("products")) || [];
+    if (!imageFile) {
+      alert("Please select an image.");
+      return;
+    }
 
-    products.push({ name, price, desc, image });
-    localStorage.setItem("products", JSON.stringify(products));
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const image = event.target.result;
+      let products = JSON.parse(localStorage.getItem("products")) || [];
 
-    alert("Product added successfully!");
-    window.location.href = "shop.html";
+      products.push({ name, price, desc, image });
+      localStorage.setItem("products", JSON.stringify(products));
+
+      alert("Product added successfully!");
+      window.location.href = "shop.html";
+    };
+    reader.readAsDataURL(imageFile);
   });
 }
 
@@ -70,7 +130,7 @@ function loadEditProduct() {
   document.getElementById("editName").value = product.name;
   document.getElementById("editPrice").value = product.price;
   document.getElementById("editDesc").value = product.desc;
-  document.getElementById("editImage").value = product.image;
+  // document.getElementById("editImage").value = product.image; // Cannot set value of file input
 
   editForm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -78,13 +138,27 @@ function loadEditProduct() {
     product.name = document.getElementById("editName").value.trim();
     product.price = document.getElementById("editPrice").value.trim();
     product.desc = document.getElementById("editDesc").value.trim();
-    product.image = document.getElementById("editImage").value.trim();
 
-    products[productIndex] = product;
-    localStorage.setItem("products", JSON.stringify(products));
+    const imageFile = document.getElementById("editImage").files[0];
 
-    alert("Product updated successfully!");
-    window.location.href = "shop.html";
+    const saveProduct = () => {
+      products[productIndex] = product;
+      localStorage.setItem("products", JSON.stringify(products));
+
+      alert("Product updated successfully!");
+      window.location.href = "shop.html";
+    };
+
+    if (imageFile) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        product.image = event.target.result;
+        saveProduct();
+      };
+      reader.readAsDataURL(imageFile);
+    } else {
+      saveProduct();
+    }
   });
 }
 
