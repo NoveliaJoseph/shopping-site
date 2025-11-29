@@ -5,7 +5,13 @@ function loadProducts() {
   const productList = document.getElementById("productList");
   if (!productList) return;
 
-  const products = JSON.parse(localStorage.getItem("products")) || [];
+  let products = [];
+  try {
+    products = JSON.parse(localStorage.getItem("products")) || [];
+  } catch (e) {
+    console.error("Error parsing products from localStorage:", e);
+    products = [];
+  }
 
   productList.innerHTML = "";
 
@@ -68,18 +74,26 @@ function loadProducts() {
     const productCard = document.createElement("div");
     productCard.classList.add("col-md-4", "mb-4");
     productCard.innerHTML = `
-      <div class="card shadow-sm">
-        <img src="${product.image}" class="card-img-top" alt="${product.name}">
+      <div class="card shadow-sm h-100 border-0">
+        <div style="height: 300px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+            <img src="${product.image}" class="card-img-top" alt="${product.name}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+        </div>
         <div class="card-body text-center">
-          <h5 class="card-title">${product.name}</h5>
-          <p class="card-text">$${product.price}</p>
-          <button class="btn btn-primary w-100" onclick="addToCart(${index})">Add to Cart</button>
+          <h5 class="card-title" style="font-family: 'Playfair Display', serif; font-weight: 700;">${product.name}</h5>
+          <p class="card-text text-muted">${product.desc}</p>
+          <p class="card-text fw-bold text-warning" style="font-size: 1.2rem;">$${product.price}</p>
+          <button class="btn btn-dark w-100" onclick="addToCart(${index})">Add to Cart</button>
         </div>
       </div>
     `;
     productList.appendChild(productCard);
   });
 }
+
+// Initialize on page load
+document.addEventListener("DOMContentLoaded", function () {
+  loadProducts();
+});
 
 // ---------- ADD PRODUCT (ADMIN) ----------
 const addProductForm = document.getElementById("addProductForm");
